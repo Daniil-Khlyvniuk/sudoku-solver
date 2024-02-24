@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+cv2
+numpy
+tensorflow
+tensorflow.keras.models
