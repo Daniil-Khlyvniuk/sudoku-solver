@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "shell:join": "docker exec -it sudoku-solver bash",
-    "shell:dev": "docker compose -f docker-compose.dev.shell.yml up --build",
-    "shell:build:dev": "docker-compose -f docker-compose.dev.shell.yml -p sudoku-solver build --no-cache",
-    "shell:stop:dev": "docker-compose -f docker-compose.dev.shell.yml -p sudoku-solver down",
+    "join": "docker exec -it sudoku-solver bash",
+    "start": "docker compose -f docker-compose.yml up --build",
+    "build": "docker-compose -f docker-compose.yml -p sudoku-solver build --no-cache",
+    "stop": "docker-compose -f docker-compose.yml -p sudoku-solver down",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

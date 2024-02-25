@@ -2,16 +2,58 @@ version: '3.8'
 
 services:
   ai-backend:
+    container_name: sudoku-solver-ai-backend
     build:
-      context: ai-backend
+      context: backends/ai-backend
       dockerfile: Dockerfile
     hostname: ai-backend
     ports:
-      - '8080-8081:8080-8081'
+      - ${AI_API_PORT}:${AI_API_PORT}
     networks:
       - local_net
     environment:
-      APP_PORT: 8080
+      - DEVELOP_MODE=${AI_API_DEVELOP_MODE}
+      - APP_PORT=${AI_API_PORT}
+    volumes:
+      - ./backends/ai-backend:/ai-backend
+    command: uvicorn app:app --host 0.0.0.0 --port ${AI_API_PORT} --reload
+
+  db-backend:
+    container_name: sudoku-solver-db-backend
+    build:
+      context: backends/db-backend
+      dockerfile: Dockerfile
+      target: development
+    hostname: db-backend
+    volumes:
+      - .:/usr/src/app
+      - ./backends/db-backend:/db-backend
+    ports:
+      - ${DB_API_PORT}:${DB_API_PORT}
+    environment:
+      - AI_BACKEND_URL=http://ai-backend:${AI_API_PORT}
+      - APP_PORT=${DB_API_PORT}
+    depends_on:
+      - ai-backend
+
+  client:
+    container_name: sudoku-solver-web-client
+    build:
+      context: client
+      dockerfile: Dockerfile
+      target: development
+    hostname: web-client
+    volumes:
+      - ./client:/client
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    depends_on:
+      - ai-backend
+      - db-backend
+    environment:
+      - VITE_APP_MAIN_BACKEND_URL=http://db-backend:${DB_API_PORT}
+    networks:
+      - local_net
 
 networks:
   local_net:

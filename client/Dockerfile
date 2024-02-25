@@ -2,16 +2,13 @@ FROM node:20-alpine as development
 
 WORKDIR /client/
 
-COPY ./package.json ./package.json
-
-#RUN #rm package-lock.json
+COPY ./package.json .
 
 RUN npm install
-RUN npm install -g vite rollup
 
-COPY client .
+COPY . .
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start:dev" ]
 
 
 FROM node:20-alpine as production
@@ -21,11 +18,7 @@ COPY ./package*.json .
 
 RUN npm i
 
-
-COPY client .
-
-ARG API_URL
-ENV VITE_REACT_APP_API_URL=$API_URL
+COPY . .
 
 RUN npm run build
 

@@ -12,7 +12,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-api_root = FastAPI(title="Solve sudoku api")
+api_root = FastAPI(title="Solve sudoku backends")
 
 # CORS
 origins = [
