@@ -1,6 +1,7 @@
+python-dotenv
 fastapi
 uvicorn
-cv2
+pydantic
+opencv-python
 numpy
 tensorflow
-tensorflow.keras.models

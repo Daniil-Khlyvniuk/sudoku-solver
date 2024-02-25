@@ -1,43 +1,33 @@
-import os
-import yaml
-import logging
+import numpy as np
 from fastapi import APIRouter, status
-from .models import ModelParam, ModelParamsResponse, DatabasesResponse, ModelsResponse
-from ..database import DATABASES
-from ..training.ml_models import MODELS_DICT
-from typing import Dict, List
+from pydantic import BaseModel
+from .services import solve_solution
+from .helpers.initializePredictionModel import *
+import os
+
 router = APIRouter()
 
 
-@router.get("/params", status_code=status.HTTP_200_OK)
-async def get_params() -> ModelParamsResponse:
-    """
-    Enpoint to get the parameters for all models.
-    :return ModelParamsResponse: a response containing the parameters for all models
-    """
-    with open("src/meta/hyperparams.yaml","r") as fp:
-        try:
-            config = yaml.safe_load(fp)
-        except yaml.YAMLError as exc:
-            print(exc)
-    logging.info(f"Loaded hyperparams: {config}")
-    params = {model_name:[ModelParam(**param) for param in model_params.values()] for model_name, model_params in config.items()}
-    return ModelParamsResponse(model_params=params)
+class RequestBody(BaseModel):
+    init_img: str
 
 
-@router.get("/databases", status_code=status.HTTP_200_OK)
-async def get_databases() -> DatabasesResponse:
-    """Endpoint to get a list of databases that are supported.
+@router.post("/solve", status_code=status.HTTP_201_CREATED)
+async def solve(body: RequestBody):
+    resources_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'Resources'))
+    model_path = os.path.join(resources_dir, 'model.h5')
+    model = initialize_prediction_model(model_path)
 
-    :return DatabasesResponse: a response containing a list of databases
-    """
-    return DatabasesResponse(databases=list(DATABASES.keys()))
+    initial_image, inv_perspective, board, solvedNumbers = solve_solution(body.init_img, model)
 
+    # board = board.tolist()  # Convert board to a list
+    # solvedNumbers = solvedNumbers.to
 
-@router.get("/models", status_code=status.HTTP_200_OK)
-async def get_models() -> ModelsResponse:
-    """Endpoint to get a list of models that are supported.
+    # json_compatible_item_data =
 
-    :return ModelsResponse: a response containing a list of models
-    """
-    return ModelsResponse(models=list(MODELS_DICT.keys()))
+    return {
+        "initial_image": body.init_img,
+        # "inv_perspective": inv_perspective.tolist(),
+        "board": np.array(board).tolist()
+        # "solvedNumbers": solvedNumbers,
+    }

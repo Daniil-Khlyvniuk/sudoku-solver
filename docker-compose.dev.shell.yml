@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  ai-backend:
+    build:
+      context: ai-backend
+      dockerfile: Dockerfile
+    hostname: ai-backend
+    ports:
+      - '8080-8081:8080-8081'
+    networks:
+      - local_net
+    environment:
+      APP_PORT: 8080
+
+networks:
+  local_net:
+    driver: bridge

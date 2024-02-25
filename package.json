@@ -1,0 +1,16 @@
+{
+  "name": "sudoku-slover",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "shell:join": "docker exec -it sudoku-solver bash",
+    "shell:dev": "docker compose -f docker-compose.dev.shell.yml up --build",
+    "shell:build:dev": "docker-compose -f docker-compose.dev.shell.yml -p sudoku-solver build --no-cache",
+    "shell:stop:dev": "docker-compose -f docker-compose.dev.shell.yml -p sudoku-solver down",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,10 @@
+FROM python:3.11-slim-bookworm
+
+WORKDIR /ai-backend
+COPY ./requirements.txt /ai-backend
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . app/ai-backend
+
+CMD python3 run.py
