@@ -24,7 +24,6 @@ height_img = 450
 width_img = 450
 model = initialize_prediction_model('Resources/trained_model.keras')
 
-
 ########################################################################
 
 

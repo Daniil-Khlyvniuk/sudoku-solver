@@ -26,13 +26,15 @@ services:
       target: development
     hostname: db-backend
     volumes:
-      - .:/usr/src/app
       - ./backends/db-backend:/db-backend
     ports:
       - ${DB_API_PORT}:${DB_API_PORT}
     environment:
       - AI_BACKEND_URL=http://ai-backend:${AI_API_PORT}
       - APP_PORT=${DB_API_PORT}
+      - DB_PASS=${DB_PASS}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_CONNECTION_LINK=${DB_CONNECTION_LINK}
     depends_on:
       - ai-backend
 

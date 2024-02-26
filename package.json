@@ -8,6 +8,7 @@
     "start": "docker compose -f docker-compose.yml up --build",
     "build": "docker-compose -f docker-compose.yml -p sudoku-solver build --no-cache",
     "stop": "docker-compose -f docker-compose.yml -p sudoku-solver down",
+    "init": "npm run build && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
