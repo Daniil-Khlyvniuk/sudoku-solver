@@ -2,5 +2,4 @@ from tensorflow.keras.models import load_model
 
 
 def initialize_prediction_model(path):
-    model = load_model(path)
-    return model
+    return load_model(path)

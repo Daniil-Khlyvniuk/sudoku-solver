@@ -1,6 +1,4 @@
 import os
-# from helpers.index import *
-
 from helpers.getBiggestContour import *
 from helpers.imagePreprocessing import *
 from helpers.reorderPoints import *
@@ -18,13 +16,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 ########################################################################
 
 path_image = "https://cdn.britannica.com/42/97142-131-E3E24AA5/sudoku-puzzle-games.jpg"
-# path_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Sudoku_Puzzle_by_L2G-20050714_standardized_layout.svg/250px-Sudoku_Puzzle_by_L2G-20050714_standardized_layout.svg.png"
+# path_image = "https://upload.wikimedia.org/wikipedia/c.ommons/thumb/e/e0/Sudoku_Puzzle_by_L2G-20050714_standardized_layout.svg/250px-Sudoku_Puzzle_by_L2G-20050714_standardized_layout.svg.png"
 # path_image = "https://cdn.britannica.com/4,2/97142-131-E3E24AA5/sudoku-puzzle-games.jpg"
 # path_image = "https://static01.nyt.com/images/2023/11/07/science/00SCI-SUDOKU-sudokus-02/00SCI-SUDOKU-sudokus-02-mobileMasterAt3x.jpg?auto=webp&quality=90"
 # path_image = "Resources/img.png"
 height_img = 450
 width_img = 450
-model = initialize_prediction_model('Resources/model.h5')
+model = initialize_prediction_model('Resources/trained_model.keras')
+
 
 ########################################################################
 

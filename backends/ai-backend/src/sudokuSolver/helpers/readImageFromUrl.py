@@ -15,6 +15,7 @@ def read_image_from_url(url):
         else:
             print("Failed to download image. Status code:", response.status_code)
             return None
-    except Exception as e:
-        print("Error downloading image:", e)
+
+    except Exception as err:
+        print("Error downloading image:", err)
         return None

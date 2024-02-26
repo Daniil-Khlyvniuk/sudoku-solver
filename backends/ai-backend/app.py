@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from src.api import api_router_root, api_router
+from fastapi.staticfiles import StaticFiles
 
 
 @asynccontextmanager
@@ -32,6 +33,7 @@ api_root.include_router(api_router_root)
 api_root.include_router(api_router)
 
 app.mount("/api", app=api_root)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 def startup():
