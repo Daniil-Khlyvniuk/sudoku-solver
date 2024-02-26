@@ -7,5 +7,3 @@ numpy
 tensorflow
 scikit-learn
 keras
-base64
-time

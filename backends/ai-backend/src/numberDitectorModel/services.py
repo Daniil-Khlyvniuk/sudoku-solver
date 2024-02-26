@@ -83,4 +83,4 @@ def train():
     model.evaluate(x_test, y_test, verbose=0)
     model.save(PATH_TO_SAVED_MODELS + "/" + TRAINED_MODEL_NAME)
 
-    return model
+    return model, TRAINED_MODEL_NAME

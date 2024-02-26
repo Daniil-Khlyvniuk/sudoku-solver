@@ -71,7 +71,7 @@ def solve_solution(path_image, model):
         img_inv_warp_colored = cv2.warpPerspective(img_solved_digits, matrix, (WIDTH_IMAGE, HEIGHT_IMAGE))
         inv_perspective = cv2.addWeighted(img_inv_warp_colored, 1, initial_image, 0.5, 1)
 
-        return initial_image, inv_perspective, board, solved_numbers
+        return inv_perspective, board
 
     else:
         raise HTTPException(status_code=404, detail=f"Sudoku is not found, check the link: \"{path_image}\"")
