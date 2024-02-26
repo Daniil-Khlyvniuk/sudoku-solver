@@ -17,7 +17,7 @@ export class S3Service {
 			},
 		})
 		this.s3BucketName = process.env.S3_BUCKET_NAME
-		this.bucketUrl = `https://${ this.s3BucketName }.s3.amazonaws.com`
+		this.bucketUrl = `https://${ this.s3BucketName }.s3.amazonaws.com/images/`
 	}
 
 	async upload(transformedImageBuffer: Buffer, filename: string) {
