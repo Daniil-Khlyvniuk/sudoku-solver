@@ -12,16 +12,14 @@ def train():
     PATH_TO_DATASET = PATH_TO_STATIC_FILES + "/DATASET_NUMBERS"
     PATH_TO_SAVED_MODELS = PATH_TO_STATIC_FILES + "/trained_models"
     DATASET_CLASSES = os.listdir(PATH_TO_DATASET)
-    print(DATASET_CLASSES)
     TRAINED_MODEL_NAME = "dijit_detector_model.keras"
 
     COUNT_CLASSES = len(DATASET_CLASSES)
     TEST_RATIO = 0.2
     VALIDATION_RATIO = 0.2
     RANDOM_STATE = 42
-    IMAGE_DIMENSIONS = (28, 28, 1)
-    BATCH_SIZE = 50
-    EPOCHS = 10
+    BATCH_SIZE = 128
+    EPOCHS = 24
 
     class_images, class_types = fill_class_images(COUNT_CLASSES, PATH_TO_DATASET)
     images = np.array(class_images)
@@ -56,8 +54,7 @@ def train():
     dataGen = ImageDataGenerator(
         width_shift_range=0.1,
         height_shift_range=0.1,
-        zoom_range=0.2,
-        shear_range=0.1,
+        zoom_range=0.1,
         rotation_range=10,
     )
 
@@ -67,7 +64,7 @@ def train():
     y_test = to_categorical(y_test, COUNT_CLASSES)
     y_validation = to_categorical(y_validation, COUNT_CLASSES)
 
-    model = create_model(IMAGE_DIMENSIONS, COUNT_CLASSES)
+    model = create_model()
 
     steps_per_epoch = len(x_train) // BATCH_SIZE
 

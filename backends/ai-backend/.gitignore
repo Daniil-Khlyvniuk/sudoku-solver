@@ -32,3 +32,8 @@ archive.zip
 .DS_Store
 
 ../.env
+
+static/**/*
+static/DATASET_*
+static/old--DATASET_*
+src/sudokuSolver/index.py

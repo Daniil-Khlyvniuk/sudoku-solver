@@ -29,7 +29,6 @@ services:
     build:
       context: backends/db-backend
       dockerfile: Dockerfile
-      target: development
     hostname: db-backend
     volumes:
       - ./backends/db-backend:/db-backend

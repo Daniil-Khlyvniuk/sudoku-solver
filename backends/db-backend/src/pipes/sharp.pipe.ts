@@ -10,18 +10,13 @@ export class SharpPipe implements PipeTransform<Express.Multer.File[], Promise<s
 	}
 
 	async transform(images: Express.Multer.File[]): Promise<string> {
-		const image = images[0]
+		const image = images?.[0]
 		if (!image) return ''
 
-		const quality = 50
+		const quality = 100
 		const filename = uuidv4() + '.webp'
 
-		sharp(image.buffer)
-			.resize()
-			.webp({ quality })
-
 		const transformedImageBuffer = await sharp(image.buffer)
-			.resize()
 			.webp({ quality })
 			.toBuffer()
 

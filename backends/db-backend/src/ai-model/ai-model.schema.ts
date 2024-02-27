@@ -1,8 +1,9 @@
 import { SchemaFactory, Schema, Prop } from '@nestjs/mongoose'
+import { Document } from 'mongoose'
 
 
 @Schema({ timestamps: true })
-export class AiModel {
+export class AiModel extends Document {
 	@Prop({ required: true, unique: true })
 	name: string
 
@@ -10,7 +11,7 @@ export class AiModel {
 	linkToModel: string
 
 	@Prop({ type: Date, default: Date.now })
-	created_at: Date
+	createdAt: Date
 }
 
 

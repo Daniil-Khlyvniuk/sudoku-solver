@@ -1,10 +1,10 @@
 import { SchemaFactory, Schema, Prop } from '@nestjs/mongoose'
 import { AiModel } from 'src/ai-model/ai-model.schema'
-import { Types } from 'mongoose'
+import { Types, Document } from 'mongoose'
 
 
 @Schema({ timestamps: true })
-export class Sudoku {
+export class Sudoku extends Document {
 	@Prop({ required: false })
 	name?: string
 

@@ -11,31 +11,38 @@ configDotenv()
 @Injectable()
 export class UserService {
 	constructor(
-		@InjectModel(User.name) private readonly sudokuModel: Model<User>,
+		@InjectModel(User.name) private readonly userModel: Model<User>,
 	) {
 	}
 
-	async create(createSudokuDto: Partial<Sudoku>): Promise<User> {
-		return this.sudokuModel.create(createSudokuDto)
+	async createNewOrGet(fingerprint: string): Promise<User> {
+		const user = await this.userModel.findOne({ _browser_fingerprint: fingerprint })
+		return user || new this.userModel({ _browser_fingerprint: fingerprint }).save()
 	}
 
-	async update(id: string, updateSudokuDto: Partial<Sudoku>): Promise<User> {
-		const updateCandidate = await this.findById(id)
+	async create(createUserDto: Partial<User>): Promise<User> {
+		return new this.userModel(createUserDto).save()
+	}
 
-		await this.sudokuModel.updateOne({ id }, {
+	async update(fp: string, updateUserDto: Partial<User>): Promise<User> {
+		const updateCandidate = await this.findByFingerprint(fp)
+
+		return this.userModel.findOneAndUpdate({ _browser_fingerprint: fp }, {
 			...updateCandidate,
-			...updateSudokuDto,
+			...updateUserDto,
 		})
-
-		return this.findById(id)
 	}
 
 
 	async findAll(): Promise<User[]> {
-		return await this.sudokuModel.find({}).exec()
+		return await this.userModel.find({}).exec()
 	}
 
 	async findById(id: string): Promise<User> {
-		return await this.sudokuModel.findOne({ id }).exec()
+		return await this.userModel.findOne({ id }).exec()
+	}
+
+	async findByFingerprint(fp: string): Promise<User> {
+		return await this.userModel.findOne({ _browser_fingerprint: fp }).exec()
 	}
 }

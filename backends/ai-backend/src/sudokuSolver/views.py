@@ -32,7 +32,7 @@ async def solve(body: RequestBody):
 
     return {
         "initial_image": body.init_img,
-        "inv_perspective": result_img,
+        "result_img": result_img,
         "solved_board": np.array(board).tolist(),
         "elapsed_time": elapsed_time,
         "model_name": MODEL_NAME,

@@ -65,7 +65,7 @@ def solve_solution(path_image, model):
 
         img_solved_digits = display_numbers(img_solved_digits, solved_numbers)
 
-        points_1, points_2 = getPoints(biggest)
+        points_2, points_1 = getPoints(biggest)
 
         matrix = cv2.getPerspectiveTransform(points_1, points_2)
         img_inv_warp_colored = cv2.warpPerspective(img_solved_digits, matrix, (WIDTH_IMAGE, HEIGHT_IMAGE))

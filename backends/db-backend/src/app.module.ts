@@ -15,8 +15,7 @@ configDotenv()
 	imports: [
 		MongooseModule.forRoot(process.env.DB_CONNECTION_LINK),
 		AiModelModule,
-		SudokuModule,
-		UserModule,
+		SudokuModule
 	],
 	controllers: [ AppController ],
 	providers: [ AppService ],

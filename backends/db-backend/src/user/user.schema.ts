@@ -1,14 +1,14 @@
 import { SchemaFactory, Schema, Prop } from '@nestjs/mongoose'
-import { Types } from 'mongoose'
+import { Document, Types } from 'mongoose'
 import { Sudoku } from 'src/sudoku/sudoku.schema'
 
 
 @Schema({ timestamps: true })
-export class User {
+export class User extends Document {
 	@Prop({ required: true, unique: true })
-	_browser_fingerprint!: string // use it as an id, TODO: replaced on regular it if i implemented registration feature
+	_browser_fingerprint!: string // use it as an id, TODO: remove it if registration feature is implemented
 
-	@Prop({ type: [ Types.ObjectId ], ref: Sudoku.name })
+	@Prop({ type: [ { type: Types.ObjectId, ref: Sudoku.name } ] })
 	sudokuList: Sudoku[]
 
 	@Prop({ type: Date, default: Date.now })

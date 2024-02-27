@@ -12,15 +12,4 @@ export class UserController {
 	async findAll(): Promise<User[]> {
 		return this.userSrv.findAll()
 	}
-
-	// @Get(':name')
-	// async findOne(@Param('name') name: string): Promise<User> {
-	// 	return this.userSrv.findByName(name)
-	// }
-
-	// @Get('create-model')
-	// async create(): Promise<User> {
-	// 	const result = await this.userSrv.createDijitDetectorModel()
-	// 	return lastValueFrom(result)
-	// }
 }
