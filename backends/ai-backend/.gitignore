@@ -33,7 +33,6 @@ archive.zip
 
 ../.env
 
-static/**/*
 static/DATASET_*
 static/old--DATASET_*
 src/sudokuSolver/index.py

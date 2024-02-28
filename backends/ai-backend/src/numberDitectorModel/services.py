@@ -18,7 +18,7 @@ def train():
     TEST_RATIO = 0.2
     VALIDATION_RATIO = 0.2
     RANDOM_STATE = 42
-    BATCH_SIZE = 128
+    BATCH_SIZE = 64
     EPOCHS = 24
 
     class_images, class_types = fill_class_images(COUNT_CLASSES, PATH_TO_DATASET)

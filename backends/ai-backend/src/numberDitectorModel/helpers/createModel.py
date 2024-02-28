@@ -27,6 +27,7 @@ def create_model():
     created_model.add(BatchNormalization())
     created_model.add(Flatten())
     created_model.add(Dropout(0.4))
+
     created_model.add(Dense(10, activation='softmax'))
 
     created_model.compile(optimizer=Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
