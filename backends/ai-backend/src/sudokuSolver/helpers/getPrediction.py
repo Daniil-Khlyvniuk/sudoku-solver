@@ -2,15 +2,34 @@ import cv2
 import numpy as np
 
 
-def preprocess_image(image):
-    denoised_image = cv2.GaussianBlur(image, (5, 5), 1)
-    # thresholded = cv2.adaptiveThreshold(denoised_image, 255, 1, 1, 11, 5)
-    _, thresholded = cv2.threshold(denoised_image, 127, 255, cv2.THRESH_BINARY)
-    resized_image = cv2.resize(thresholded, (28, 28))
+def resize(img):
+    resized_image = cv2.resize(img, (28, 28))
     processed_image = resized_image / 255.0
     processed_image = processed_image.reshape(1, 28, 28, 1)
 
     return processed_image
+
+
+def preprocess_image(img):
+    kernel = np.ones((3, 3), np.uint8)
+    closing = cv2.morphologyEx(img, cv2.MORPH_RECT, kernel, iterations=1)
+    ret, thresh = cv2.threshold(closing, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    processed_image = resize(thresh)
+
+    return processed_image
+
+
+def is_empty(img, model):
+    img = cv2.Canny(img, 100, 200)
+
+    predictions = model.predict(resize(img))
+    classIndex = np.argmax(predictions, axis=-1)
+    probabilityValue = np.amax(predictions)
+
+    if classIndex[0] == 0:
+        cv2.imshow(f'Image: {classIndex[0]} - {probabilityValue}', img.squeeze())
+    return classIndex[0] == 0
 
 
 def get_prediction(fields, model):
@@ -20,18 +39,14 @@ def get_prediction(fields, model):
         field_img = np.asarray(field)
         field_img = field_img[4:field_img.shape[0] - 4, 4:field_img.shape[1] - 4]
 
-        processed_img = preprocess_image(field_img)
+        if is_empty(field_img, model):
+            result.append(0)
+            continue
 
+        processed_img = preprocess_image(field_img)
         predictions = model.predict(processed_img)
         classIndex = np.argmax(predictions, axis=-1)
-        probabilityValue = np.amax(predictions)
 
-        if classIndex[0] == 1 and probabilityValue > 0.8:
-            cv2.imshow(f'Image: {classIndex[0]} - {probabilityValue}', processed_img.squeeze())
-
-        if probabilityValue > 0.8:
-            result.append(classIndex[0])
-        else:
-            result.append(0)
+        result.append(classIndex[0])
 
     return result

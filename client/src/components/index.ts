@@ -1,4 +1,6 @@
 export { default as Header } from './Header'
 export { default as Footer } from './Footer'
 export { default as PageLayout } from './PageLayout'
+export { default as ImageWrapper } from './ImageWrapper'
+export { default as Loader } from './Loader'
 export { default as SelectSudokuForm } from './SelectSudokuForm'

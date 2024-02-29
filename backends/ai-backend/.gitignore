@@ -35,4 +35,5 @@ archive.zip
 
 static/DATASET_*
 static/old--DATASET_*
+static/old-1-DATASET_*
 src/sudokuSolver/index.py

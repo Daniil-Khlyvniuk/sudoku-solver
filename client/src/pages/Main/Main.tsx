@@ -13,10 +13,6 @@ const Main = () => {
 	return (
 		<PageLayout>
 			<StyledContainer>
-				<Typography variant={ 'h2' } color={ colors.main_white } fontWeight={ 'bold' }>
-					Welcome to the sudoku solver
-				</Typography>
-
 				<SelectSudokuForm/>
 			</StyledContainer>
 		</PageLayout>

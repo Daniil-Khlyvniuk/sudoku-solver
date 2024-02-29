@@ -18,7 +18,7 @@ class RequestBody(BaseModel):
 @router.post("/solve", status_code=status.HTTP_201_CREATED)
 async def solve(body: RequestBody):
     start_time = time.time()
-    MODEL_NAME = "dijit_detector_model.keras"
+    MODEL_NAME = "3_digit_classifier.keras"
     PATH_TO_STATIC_FILES = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../static"))
     PATH_TO_SAVED_MODELS = PATH_TO_STATIC_FILES + "/trained_models"
     PATH_TO_SAVED_DIJIT_DETECTOR_MODEL = PATH_TO_SAVED_MODELS + "/" + MODEL_NAME

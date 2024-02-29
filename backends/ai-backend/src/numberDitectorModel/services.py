@@ -12,13 +12,13 @@ def train():
     PATH_TO_DATASET = PATH_TO_STATIC_FILES + "/DATASET_NUMBERS"
     PATH_TO_SAVED_MODELS = PATH_TO_STATIC_FILES + "/trained_models"
     DATASET_CLASSES = os.listdir(PATH_TO_DATASET)
-    TRAINED_MODEL_NAME = "dijit_detector_model.keras"
+    TRAINED_MODEL_NAME = "3_digit_classifier.keras"
 
     COUNT_CLASSES = len(DATASET_CLASSES)
     TEST_RATIO = 0.2
-    VALIDATION_RATIO = 0.2
+    VALIDATION_RATIO = 0.3
     RANDOM_STATE = 42
-    BATCH_SIZE = 64
+    BATCH_SIZE = 30
     EPOCHS = 24
 
     class_images, class_types = fill_class_images(COUNT_CLASSES, PATH_TO_DATASET)
@@ -52,10 +52,10 @@ def train():
     x_validation = x_validation.reshape(x_validation.shape[0], x_validation.shape[1], x_validation.shape[2], 1)
 
     dataGen = ImageDataGenerator(
-        width_shift_range=0.1,
-        height_shift_range=0.1,
-        zoom_range=0.1,
-        rotation_range=10,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        zoom_range=0.2,
+        rotation_range=20,
     )
 
     dataGen.fit(x_train)
@@ -64,7 +64,8 @@ def train():
     y_test = to_categorical(y_test, COUNT_CLASSES)
     y_validation = to_categorical(y_validation, COUNT_CLASSES)
 
-    model = create_model()
+    # model = improved_model()
+    model = improved_model()
 
     steps_per_epoch = len(x_train) // BATCH_SIZE
 

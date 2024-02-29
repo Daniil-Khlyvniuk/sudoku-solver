@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:all": "npm run start:ai-backend && npm run start:db-backend && start:client",
     "start:ai-backend": "cd ./backends/ai-backend && python3 run.py",
     "start:db-backend": "cd ./backends/db-backend && npm run start:dev",
     "start:client": "cd ./client && npm run start:dev",
