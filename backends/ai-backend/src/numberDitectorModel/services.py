@@ -12,9 +12,9 @@ def train():
     PATH_TO_DATASET = PATH_TO_STATIC_FILES + "/DATASET_NUMBERS"
     PATH_TO_SAVED_MODELS = PATH_TO_STATIC_FILES + "/trained_models"
     DATASET_CLASSES = os.listdir(PATH_TO_DATASET)
-    TRAINED_MODEL_NAME = "3_digit_classifier.keras"
+    TRAINED_MODEL_NAME = "test-4_digit_classifier.keras"
 
-    COUNT_CLASSES = len(DATASET_CLASSES)
+    COUNT_CLASSES = len(DATASET_CLASSES) # 10
     TEST_RATIO = 0.2
     VALIDATION_RATIO = 0.3
     RANDOM_STATE = 42
@@ -51,26 +51,25 @@ def train():
     x_test = x_test.reshape(x_test.shape[0], x_test.shape[1], x_test.shape[2], 1)
     x_validation = x_validation.reshape(x_validation.shape[0], x_validation.shape[1], x_validation.shape[2], 1)
 
-    dataGen = ImageDataGenerator(
+    data_gen = ImageDataGenerator(
         width_shift_range=0.2,
         height_shift_range=0.2,
         zoom_range=0.2,
         rotation_range=20,
     )
 
-    dataGen.fit(x_train)
+    data_gen.fit(x_train)
 
     y_train = to_categorical(y_train, COUNT_CLASSES)
     y_test = to_categorical(y_test, COUNT_CLASSES)
     y_validation = to_categorical(y_validation, COUNT_CLASSES)
 
-    # model = improved_model()
     model = improved_model()
 
     steps_per_epoch = len(x_train) // BATCH_SIZE
 
     model.fit(
-        dataGen.flow(x_train, y_train, batch_size=BATCH_SIZE),
+        data_gen.flow(x_train, y_train, batch_size=BATCH_SIZE),
         batch_size=BATCH_SIZE,
         steps_per_epoch=steps_per_epoch,
         epochs=EPOCHS,

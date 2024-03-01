@@ -25,10 +25,7 @@ def is_empty(img, model):
 
     predictions = model.predict(resize(img))
     classIndex = np.argmax(predictions, axis=-1)
-    probabilityValue = np.amax(predictions)
 
-    if classIndex[0] == 0:
-        cv2.imshow(f'Image: {classIndex[0]} - {probabilityValue}', img.squeeze())
     return classIndex[0] == 0
 
 
