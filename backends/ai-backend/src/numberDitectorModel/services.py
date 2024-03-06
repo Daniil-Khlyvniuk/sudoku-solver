@@ -1,3 +1,5 @@
+import pickle
+
 from .helpers.createModel import *
 from .helpers.fillClassImages import *
 from .helpers.preprocessingImage import *
@@ -12,7 +14,7 @@ def train():
     PATH_TO_DATASET = PATH_TO_STATIC_FILES + "/DATASET_NUMBERS"
     PATH_TO_SAVED_MODELS = PATH_TO_STATIC_FILES + "/trained_models"
     DATASET_CLASSES = os.listdir(PATH_TO_DATASET)
-    TRAINED_MODEL_NAME = "test-4_digit_classifier.keras"
+    TRAINED_MODEL_NAME = "3.1_digit_classifier.keras"
 
     COUNT_CLASSES = len(DATASET_CLASSES) # 10
     TEST_RATIO = 0.2
@@ -68,7 +70,7 @@ def train():
 
     steps_per_epoch = len(x_train) // BATCH_SIZE
 
-    model.fit(
+    history = model.fit(
         data_gen.flow(x_train, y_train, batch_size=BATCH_SIZE),
         batch_size=BATCH_SIZE,
         steps_per_epoch=steps_per_epoch,
@@ -79,5 +81,9 @@ def train():
 
     model.evaluate(x_test, y_test, verbose=0)
     model.save(PATH_TO_SAVED_MODELS + "/" + TRAINED_MODEL_NAME)
+
+    # Save the training history
+    with open(f'{PATH_TO_SAVED_MODELS}/3.1_digit_classifier_history.pkl', 'wb') as f:
+        pickle.dump(history.history, f)
 
     return model, TRAINED_MODEL_NAME

@@ -19,7 +19,7 @@ def biggest_contour(contours):
 
         if is_aria_big_enough(area):
             peri = cv2.arcLength(contur, True)
-            approx = cv2.approxPolyDP(contur, 0.02 * peri, True)
+            approx = cv2.approxPolyDP(contur, 0.01 * peri, True)
 
             if area > max_area and is_square(approx):
                 biggest = approx

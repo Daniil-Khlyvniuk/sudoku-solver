@@ -21,6 +21,8 @@ def getPoints(contour):
 
 def solve_solution(path_image, model):
     initial_image = read_image_from_url(path_image)
+    aspect_ratio = initial_image.shape[1] / initial_image.shape[0]
+    init_ratio_height_img = int(WIDTH_IMAGE / aspect_ratio)
 
     if initial_image is None:
         raise ValueError(f"Failed to load image from path: {path_image}")
@@ -38,7 +40,7 @@ def solve_solution(path_image, model):
         points_1, points_2 = getPoints(biggest)
 
         matrix = cv2.getPerspectiveTransform(points_1, points_2)
-        img_warp_colored = cv2.warpPerspective(initial_image, matrix, (WIDTH_IMAGE, HEIGHT_IMAGE))
+        img_warp_colored = cv2.warpPerspective(initial_image, matrix, (WIDTH_IMAGE, WIDTH_IMAGE))
         img_warp_gray = cv2.cvtColor(img_warp_colored, cv2.COLOR_BGR2GRAY)
 
         img_solved_digits = img_blank.copy()
@@ -70,6 +72,7 @@ def solve_solution(path_image, model):
         matrix = cv2.getPerspectiveTransform(points_1, points_2)
         img_inv_warp_colored = cv2.warpPerspective(img_solved_digits, matrix, (WIDTH_IMAGE, HEIGHT_IMAGE))
         inv_perspective = cv2.addWeighted(img_inv_warp_colored, 1, initial_image, 0.5, 1)
+        inv_perspective = cv2.resize(inv_perspective, (WIDTH_IMAGE, init_ratio_height_img))
 
         return inv_perspective, board
 
