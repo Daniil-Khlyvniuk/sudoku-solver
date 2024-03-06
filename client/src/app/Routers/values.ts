@@ -1,6 +1,6 @@
 export enum ROUTES {
-	MAIN = '/',
-	STATS = '/statistics',
+	HOME = '/',
+	STATISTICS = '/statistics',
 	// SIGN_UP = '/sign-up',
 	// CONTACT_US = '/contact-us',
 }

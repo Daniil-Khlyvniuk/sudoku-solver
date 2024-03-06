@@ -19,7 +19,7 @@ const SelectSudokuForm = () => {
 				<TabList onChange={ handleChange } variant={ 'scrollable' }>
 					<StyledTab label={ TypesOfUserInput.selectTestImages } value={ TypesOfUserInput.selectTestImages }/>
 					<StyledTab label={ TypesOfUserInput.pasteLinkToImage } value={ TypesOfUserInput.pasteLinkToImage }/>
-					<StyledTab label={ TypesOfUserInput.takePhoto } value={ TypesOfUserInput.takePhoto }/>
+					{/*<StyledTab label={ TypesOfUserInput.takePhoto } value={ TypesOfUserInput.takePhoto }/>*/ }
 				</TabList>
 			</Box>
 			<TabPanel value={ TypesOfUserInput.selectTestImages }>
@@ -28,9 +28,9 @@ const SelectSudokuForm = () => {
 			<TabPanel value={ TypesOfUserInput.pasteLinkToImage }>
 				<UploadFileFromDevice mode={ TypesOfUserInput.pasteLinkToImage }/>
 			</TabPanel>
-			<TabPanel value={ TypesOfUserInput.takePhoto }>
-				<UploadFileFromDevice mode={ TypesOfUserInput.takePhoto }/>
-			</TabPanel>
+			{/*<TabPanel value={ TypesOfUserInput.takePhoto }>*/ }
+			{/*	<UploadFileFromDevice mode={ TypesOfUserInput.takePhoto }/>*/ }
+			{/*</TabPanel>*/ }
 		</TabContext>
 	)
 }

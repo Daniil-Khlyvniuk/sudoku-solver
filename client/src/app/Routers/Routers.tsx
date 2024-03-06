@@ -6,8 +6,8 @@ import { MainPage, StatisticsPage } from 'pages'
 const Routers = () => {
 	return (
 		<Routes>
-			<Route path={ ROUTES.MAIN } element={ <MainPage/> }/>
-			<Route path={ ROUTES.STATS } element={ <StatisticsPage/> }/>
+			<Route path={ ROUTES.HOME } element={ <MainPage/> }/>
+			<Route path={ ROUTES.STATISTICS } element={ <StatisticsPage/> }/>
 		</Routes>
 	)
 }

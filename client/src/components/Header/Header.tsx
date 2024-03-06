@@ -17,11 +17,13 @@ import { useState } from 'react'
 import { logoImg } from 'assets/images'
 import { colors } from 'assets/styles/colors'
 import { container as containerStyles } from 'assets/styles/mixins'
+import { ROUTES } from 'app/Routers/values'
+import { Link } from 'react-router-dom'
 
 
 export default function DrawerAppBar(props: Props) {
 	const drawerWidth = 240
-	const navItems = [ 'Home', 'Statistics' ]
+	const navItems = Object.entries(ROUTES)
 
 	const { window } = props
 	const [ mobileOpen, setMobileOpen ] = useState<boolean>(false)
@@ -38,9 +40,15 @@ export default function DrawerAppBar(props: Props) {
 			<Divider/>
 			<List>
 				{ navItems.map((item) => (
-					<ListItem key={ item } disablePadding>
+					<ListItem key={ item[1] } disablePadding>
 						<ListItemButton sx={ { textAlign: 'center' } }>
-							<ListItemText sx={{fontSize: '48px', fontWeight: 'bold'}} primary={ item }/>
+
+							<ListItemText sx={ { fontSize: '48px', fontWeight: 'bold' } } primary={ item[1] }>
+								<Link to={ item[1] }>
+									{ item[0] }
+								</Link>
+							</ListItemText>
+
 						</ListItemButton>
 					</ListItem>
 				)) }
@@ -73,8 +81,10 @@ export default function DrawerAppBar(props: Props) {
 					</Typography>
 					<Box sx={ { display: { xs: 'none', sm: 'block' } } }>
 						{ navItems.map((item) => (
-							<Button key={ item } sx={ { color: colors.main_white, fontSize: 18, fontWeight: 'bold' } }>
-								{ item }
+							<Button key={ item[1] } sx={ { color: colors.main_white, fontSize: 18, fontWeight: 'bold' } }>
+								<Link to={ item[1] }>
+									{ item[0] }
+								</Link>
 							</Button>
 						)) }
 					</Box>

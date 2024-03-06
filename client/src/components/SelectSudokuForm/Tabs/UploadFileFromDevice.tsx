@@ -14,7 +14,7 @@ import {
 } from 'components/SelectSudokuForm/Tabs/styles'
 import { Loader } from 'components'
 import { TypesOfUserInput } from 'components/SelectSudokuForm/Tabs/values'
-import { sudokuTest1, sudokuTest2, sudokuTest3 } from 'assets/images'
+import { sudokuTest1, sudokuTest2, sudokuTest3, sudokuTest4, sudokuTest5 } from 'assets/images'
 
 
 const UploadFileFromDevice = ({ mode }: { mode: TypesOfUserInput }) => {
@@ -22,6 +22,8 @@ const UploadFileFromDevice = ({ mode }: { mode: TypesOfUserInput }) => {
 		sudokuTest1,
 		sudokuTest2,
 		sudokuTest3,
+		// sudokuTest4,
+		sudokuTest5,
 	]
 
 	const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -96,7 +98,7 @@ const UploadFileFromDevice = ({ mode }: { mode: TypesOfUserInput }) => {
 			<Paper
 				sx={ {
 					width: 'fit-content',
-					maxWidth: '480px',
+					maxWidth: '800px',
 					minWidth: '320px',
 					p: 4,
 					bgcolor: colors.dark_gray,
